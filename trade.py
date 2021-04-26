@@ -57,7 +57,7 @@ def main(symbol):
         print('sell 10% of ' + symbol)
         coin = symbol[:3]
         # 10% of the total coins have
-        amount_to_sell = (float(self.get_asset_balance(asset=coin)['free']) * 0.1)
+        amount_to_sell = (float(self.get_asset_balance(asset=coin)['free']) * 0.2)
         order_info = create_sell(symbol, amount_to_sell, current_price)
         sell_order_id = order_info['orderId']
         
