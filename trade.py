@@ -4,8 +4,6 @@ import config
 import sys
 from binance.client import Client
 from binance.enums import *
-# from Message import Messages
-#from database import Database
 
 self = Client(config.api_key, config.api_secret)
 symbol = sys.argv[1]
@@ -60,19 +58,19 @@ def main(symbol):
         coin = symbol[:3]
         # 10% of the total coins have
         amount_to_sell = (float(self.get_asset_balance(asset=coin)['free']) * 0.1)
-        # order_info = create_sell(symbol, amount_to_sell, current_price)
-        # sell_order_id = order_info['orderId']
-        #
-        # # print('Sell order create id: %d' % sell_id)
-        # self.logger.info('Sell order create id: %d' % sell_order_id)
-        #
-        # time.sleep(self.WAIT_TIME_CHECK_SELL)
-        #
-        # if order_info['status'] == 'FILLED':
-        #     # Database log
-        #     Database.write([sell_order_id, symbol, 0, current_price, 'SELL', amount])
-        #     print('order successfully filled')
-        # buy_sell = False
+        order_info = create_sell(symbol, amount_to_sell, current_price)
+        sell_order_id = order_info['orderId']
+        
+        # print('Sell order create id: %d' % sell_id)
+        self.logger.info('Sell order create id: %d' % sell_order_id)
+        
+        time.sleep(self.WAIT_TIME_CHECK_SELL)
+        
+        if order_info['status'] == 'FILLED':
+            # Database log
+            Database.write([sell_order_id, symbol, 0, current_price, 'SELL', amount])
+            print('order successfully filled')
+        buy_sell = False
 
 
     elif ((float(price_change) < -20) and (buy_sell == False)):
@@ -82,23 +80,23 @@ def main(symbol):
         # from the dataset get the value of the coin sell
         money = 1;
         amount_to_buy = money / current_price
-    #     order_info = create_buy(symbol, amount_to_buy, current_price)
-    #     buy_order_id = order_info['orderId']
-    #
-    #     # print('Sell order create id: %d' % sell_id)
-    #     self.logger.info('Sell order create id: %d' % buy_order_id)
-    #
-    #     time.sleep(self.WAIT_TIME_CHECK_BUY)
-    #
-    #     if order_info['status'] == 'FILLED':
-    #         # Database log
-    #         Database.write([buy_order_id, symbol, 0, current_price, 'BUY', amount])
-    #         print('order successfully filled')
-    #     buy_sell = True
-    #
-    # else:
-    #     # print('hold the coins')
-    #     print(current_price)
+        order_info = create_buy(symbol, amount_to_buy, current_price)
+        buy_order_id = order_info['orderId']
+    
+        # print('Sell order create id: %d' % sell_id)
+        self.logger.info('Sell order create id: %d' % buy_order_id)
+    
+        time.sleep(self.WAIT_TIME_CHECK_BUY)
+    
+        if order_info['status'] == 'FILLED':
+            # Database log
+            Database.write([buy_order_id, symbol, 0, current_price, 'BUY', amount])
+            print('order successfully filled')
+        buy_sell = True
+    
+    else:
+        print('hold the coins')
+#         print(current_price)
 
 
 def Main():
