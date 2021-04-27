@@ -68,7 +68,7 @@ def main(symbol):
         
         if order_info['status'] == 'FILLED':
             # Database log
-            Database.write([sell_order_id, symbol, 0, current_price, 'SELL', amount])
+#             Database.write([sell_order_id, symbol, 0, current_price, 'SELL', amount])
             print('order successfully filled')
         buy_sell = False
 
@@ -90,7 +90,7 @@ def main(symbol):
     
         if order_info['status'] == 'FILLED':
             # Database log
-            Database.write([buy_order_id, symbol, 0, current_price, 'BUY', amount])
+#             Database.write([buy_order_id, symbol, 0, current_price, 'BUY', amount])
             print('order successfully filled')
         buy_sell = True
     
